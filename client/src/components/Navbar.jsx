@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Search, ShoppingCartOutlined } from "@mui/icons-material/";
 import { Badge } from "@mui/material";
 
 const Navbar = () => {
+  const [isAtTop, setIsAtTop] = useState(true);
+
+  useEffect(() => {
+    const handleNavScrollChange = () => {
+      if (window.scrollY === 0) setIsAtTop(true);
+      if (window.scrollY !== 0) setIsAtTop(false);
+    };
+
+    window.addEventListener("scroll", handleNavScrollChange);
+
+    return () => {
+      window.removeEventListener("scroll", handleNavScrollChange);
+    };
+  }, []);
+
   return (
-    <Container>
+    <Container isAtTop={isAtTop}>
       <Wrapper>
         <Left>
           <Language>EN</Language>
@@ -35,6 +50,11 @@ export default Navbar;
 
 const Container = styled.div`
   height: 60px;
+  width: 100%;
+  position: ${(props) => (props.isAtTop ? "" : "sticky")};
+  top: ${(props) => (props.isAtTop ? "" : "0")};
+  z-index: 10;
+  background-color: white;
 `;
 
 const Wrapper = styled.div`
