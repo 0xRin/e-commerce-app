@@ -54,7 +54,10 @@ const Container = styled.div`
   position: ${(props) => (props.isAtTop ? "" : "sticky")};
   top: ${(props) => (props.isAtTop ? "" : "0")};
   z-index: 10;
-  background-color: white;
+  background-color: ${(props) =>
+    props.isAtTop ? "white" : "rgba(255, 255, 255, 0.3)"};
+  backdrop-filter: blur(${(props) => (props.isAtTop ? "0" : "5")}px);
+  transition: blur ease 2s;
 `;
 
 const Wrapper = styled.div`
