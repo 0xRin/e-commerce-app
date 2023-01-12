@@ -3,6 +3,8 @@ import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
 import MainLayout from "./layout/MainLayout";
 import Product from "./pages/Product";
+import Register from "./pages/Register";
+import Login from "./pages/Login.jsx";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
           <Route path=":id" element={<Product />} />
         </Route>
       </Route>
+      <Route path="register" element={<Register />} />
+      <Route path="login" element={<Login />} />
       <Route path="*">404</Route>
     </Routes>
   );
