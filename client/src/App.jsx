@@ -5,6 +5,7 @@ import MainLayout from "./layout/MainLayout";
 import Product from "./pages/Product";
 import Register from "./pages/Register";
 import Login from "./pages/Login.jsx";
+import Cart from "./pages/Cart";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="dresses" element={<ProductList />} />
           <Route path=":id" element={<Product />} />
         </Route>
+        <Route path="cart" element={<Cart />} />
       </Route>
       <Route path="register" element={<Register />} />
       <Route path="login" element={<Login />} />
