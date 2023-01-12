@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Send } from "@mui/icons-material";
+import { mobile } from "../responsive";
 
 const Newsletter = () => {
   return (
@@ -38,6 +39,7 @@ const InputContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   overflow: hidden;
+  ${mobile({ width: "80%" })}
 `;
 const Input = styled.input`
   width: 100%;
@@ -50,6 +52,7 @@ const Description = styled.p`
   font-size: 24px;
   font-weight: 200;
   margin-bottom: 20px;
+  ${mobile({ textAlign: "center" })}
 `;
 const Button = styled.button`
   border-radius: 0%;

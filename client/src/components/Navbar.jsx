@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Search, ShoppingCartOutlined } from "@mui/icons-material/";
 import { Badge } from "@mui/material";
+import { mobile } from "../responsive";
 
 const Navbar = () => {
   const [isAtTop, setIsAtTop] = useState(true);
@@ -58,6 +59,7 @@ const Container = styled.div`
     props.isAtTop ? "white" : "rgba(255, 255, 255, 0.3)"};
   backdrop-filter: blur(${(props) => (props.isAtTop ? "0" : "5")}px);
   transition: blur ease 2s;
+  ${mobile({ height: "50px" })}
 `;
 
 const Wrapper = styled.div`
@@ -66,12 +68,14 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
+  ${mobile({ padding: "10px 0px" })}
 `;
 
 const Left = styled.div`
   flex: 1;
   display flex;
   align-items: center;
+  ${mobile({ display: "none" })}
 `;
 
 const SearchContainer = styled.div`
@@ -85,11 +89,13 @@ const SearchContainer = styled.div`
 const Input = styled.input`
   border: none;
   outline: none;
+  ${mobile({ width: "50px" })}
 `;
 
 const Language = styled.span`
   font-size 14px;
   cursor: pointer;
+  ${mobile({ display: "none" })}
 `;
 
 const Center = styled.div`
@@ -100,6 +106,7 @@ const Center = styled.div`
 const Logo = styled.div`
   font-weight: bold;
   font-size: 36px;
+  ${mobile({ fontSize: "24px" })}
 `;
 
 const Right = styled.div`
@@ -108,9 +115,11 @@ const Right = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   gap: 10px;
+  ${mobile({ justifyContent: "center", flex: 2 })}
 `;
 
 const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
+  ${mobile({ fontSize: "12x", marginLeft: "10px" })}
 `;
