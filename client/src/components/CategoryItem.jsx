@@ -43,4 +43,6 @@ const Button = styled.button`
 const Title = styled.h1`
   color: white;
   text-align: center;
+  font-weight: 500;
+  font-size: 40px;
 `;
