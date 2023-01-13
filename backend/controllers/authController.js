@@ -1,7 +1,10 @@
 const BadRequestError = require("../errors/BadRequestError");
 const ConflictError = require("../errors/ConflictError");
+const UnauthorizedError = require("../errors/UnauthorizedError");
 const User = require("../models/UserModel");
 const encryptPassword = require("../util/encryptPassword");
+const checkPassword = require("../util/checkPassword");
+const NotFoundError = require("../errors/NotFoundError");
 
 // register user
 const registerUser = async (req, res) => {
@@ -35,7 +38,25 @@ const registerUser = async (req, res) => {
 };
 
 // login user
-const loginUser = (req, res) => {};
+const loginUser = async (req, res) => {
+  const { username, password } = req.body;
+
+  //check req
+  if (!username || !password)
+    throw new BadRequestError("username and password is required");
+
+  // find user
+  const user = await User.findOne({ username });
+  if (!user) throw new NotFoundError("User not found");
+
+  //   check password
+  const isMatch = await checkPassword(password, user.password);
+
+  if (!isMatch) throw new UnauthorizedError("Invalid password");
+
+  // user logged in
+  res.status(200).json({ message: "User logged in successfully" });
+};
 
 module.exports = {
   registerUser,
