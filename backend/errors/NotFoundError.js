@@ -6,3 +6,5 @@ class NotFoundError extends Error {
     this.status = StatusCodes.NOT_FOUND;
   }
 }
+
+module.exports = NotFoundError;
