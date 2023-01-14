@@ -42,4 +42,5 @@ const authenticateAdminPrivelageMiddleware = (req, res, next) => {
 module.exports = {
   authenticateRoleMiddleware,
   authenticateAdminPrivelageMiddleware,
+  authenticateUserMiddleware,
 };
