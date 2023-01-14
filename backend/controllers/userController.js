@@ -41,4 +41,30 @@ const deleteUserProfile = async (req, res) => {
     .json({ message: `${deletedUser.username}'s profile has been deleted` });
 };
 
-module.exports = { updateUserProfile, deleteUserProfile };
+// get user
+const getUserProfile = async (req, res) => {
+  const { id } = req.params;
+
+  const user = await User.findById(id);
+  if (!user) throw new NotFoundError(`User  not found`);
+  const { password, ...userInfo } = user._doc;
+  res.status(200).json({ user: userInfo });
+};
+
+// get all users
+const getAllUsers = async (req, res) => {
+  const { isNew } = req.query;
+
+  const users = isNew
+    ? await User.find().sort({ _id: -1 }).limit(2)
+    : await User.find();
+
+  res.status(200).json(users);
+};
+
+module.exports = {
+  updateUserProfile,
+  deleteUserProfile,
+  getUserProfile,
+  getAllUsers,
+};
