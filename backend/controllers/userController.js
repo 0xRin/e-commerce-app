@@ -1,6 +1,9 @@
 const encryptPassword = require("../util/encryptPassword");
 const User = require("../models/UserModel");
 const NotFoundError = require("../errors/NotFoundError");
+const {
+  authenticateAdminPrivelageMiddleware,
+} = require("../middleware/authenticateUserMiddleware");
 
 // update user profile
 const updateUserProfile = async (req, res) => {
@@ -62,9 +65,34 @@ const getAllUsers = async (req, res) => {
   res.status(200).json(users);
 };
 
+// get user stats
+const getStats = async (req, res) => {
+  const date = new Date();
+
+  const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
+
+  const data = await User.aggregate([
+    { $match: { createdAt: { $gte: lastYear } } },
+    {
+      $project: {
+        month: { $month: "$createdAt" },
+      },
+    },
+    {
+      $group: {
+        _id: "$month",
+        total: { $sum: 1 },
+      },
+    },
+  ]);
+
+  res.status(200).json(data);
+};
+
 module.exports = {
   updateUserProfile,
   deleteUserProfile,
   getUserProfile,
   getAllUsers,
+  getStats,
 };

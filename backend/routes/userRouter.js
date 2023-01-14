@@ -8,6 +8,7 @@ const {
   deleteUserProfile,
   getUserProfile,
   getAllUsers,
+  getStats,
 } = require("../controllers/userController");
 
 //  update user
@@ -17,9 +18,12 @@ router.put("/:id", authenticateRoleMiddleware, updateUserProfile);
 router.delete("/:id", authenticateAdminPrivelageMiddleware, deleteUserProfile);
 
 // get user profile
-router.get("/:id", authenticateAdminPrivelageMiddleware, getUserProfile);
+router.get("find/:id", authenticateAdminPrivelageMiddleware, getUserProfile);
 
 // get all users
 router.get("/", authenticateAdminPrivelageMiddleware, getAllUsers);
+
+// get user stats
+router.get("/stats", authenticateAdminPrivelageMiddleware, getStats);
 
 module.exports = router;
