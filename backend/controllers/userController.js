@@ -2,6 +2,7 @@ const encryptPassword = require("../util/encryptPassword");
 const User = require("../models/UserModel");
 const NotFoundError = require("../errors/NotFoundError");
 
+// update user profile
 const updateUserProfile = async (req, res) => {
   const { password } = req.body;
 
@@ -28,4 +29,16 @@ const updateUserProfile = async (req, res) => {
   res.status(200).json({ message: updatedUser });
 };
 
-module.exports = { updateUserProfile };
+// delete user profile
+const deleteUserProfile = async (req, res) => {
+  const { id } = req.params;
+
+  const deletedUser = await User.findByIdAndDelete(id);
+  if (!deletedUser) throw new NotFoundError("User does not exist");
+
+  res
+    .status(200)
+    .json({ message: `${deletedUser.username}'s profile has been deleted` });
+};
+
+module.exports = { updateUserProfile, deleteUserProfile };

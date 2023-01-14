@@ -30,4 +30,17 @@ const authenticateRoleMiddleware = (req, res, next) => {
   });
 };
 
-module.exports = { authenticateUserMiddleware, authenticateRoleMiddleware };
+const authenticateAdminPrivelageMiddleware = (req, res, next) => {
+  authenticateUserMiddleware(req, res, () => {
+    if (!req.user.isAdmin)
+      throw new UnathorizedError("Route can only be access by admin");
+  });
+
+  next();
+};
+
+module.exports = {
+  authenticateUserMiddleware,
+  authenticateRoleMiddleware,
+  authenticateAdminPrivelageMiddleware,
+};
