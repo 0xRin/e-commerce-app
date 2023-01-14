@@ -5,6 +5,7 @@ const User = require("../models/UserModel");
 const encryptPassword = require("../util/encryptPassword");
 const checkPassword = require("../util/checkPassword");
 const NotFoundError = require("../errors/NotFoundError");
+const jwt = require("jsonwebtoken");
 
 // register user
 const registerUser = async (req, res) => {
@@ -54,8 +55,19 @@ const loginUser = async (req, res) => {
 
   if (!isMatch) throw new UnauthorizedError("Invalid password");
 
+  //   create access token
+  const accessToken = jwt.sign(
+    {
+      id: user._id,
+      isAdmin: user.isAdmin,
+      username: user.username,
+    },
+    process.env.ACCESS_TOKEN_SECRET,
+    { expiresIn: "3d" }
+  );
+
   // user logged in
-  res.status(200).json({ message: "User logged in successfully" });
+  res.status(200).json({ message: "User logged in successfully", accessToken });
 };
 
 module.exports = {
