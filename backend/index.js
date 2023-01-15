@@ -9,6 +9,7 @@ const userRouter = require("./routes/userRouter");
 const authRouter = require("./routes/authRouter");
 const productRouter = require("./routes/productRouter");
 const cartRouter = require("./routes/cartRouter");
+const orderRouter = require("./routes/orderRouter");
 const {
   errorHandlerMiddleware,
 } = require("./middleware/errorHandlerMiddleware");
@@ -29,6 +30,7 @@ app.use(`${baseUrl}/users`, userRouter);
 app.use(`${baseUrl}/auth`, authRouter);
 app.use(`${baseUrl}/products`, productRouter);
 app.use(`${baseUrl}/cart`, cartRouter);
+app.use(`${baseUrl}/orders`, orderRouter);
 
 // Error Handler
 app.use(errorHandlerMiddleware);

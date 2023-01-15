@@ -16,13 +16,13 @@ const router = require("express").Router();
 router.post("/", authenticateUserMiddleware, createCart);
 
 // update cart
-router.put("/", authenticateUserMiddleware, updateCart);
+router.put("/:id", authenticateUserMiddleware, updateCart);
 
 // delete cart
-router.delete("/", authenticateUserMiddleware, deleteCart);
+router.delete("/:id", authenticateUserMiddleware, deleteCart);
 
 // get cart
-router.get("/", authenticateUserMiddleware, getCart);
+router.get("/:id", authenticateUserMiddleware, getCart);
 
 // get all
 router.get("/all", authenticateAdminPrivelageMiddleware, getAllUserCarts);
